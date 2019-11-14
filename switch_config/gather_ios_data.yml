@@ -2,7 +2,7 @@
 - name: GATHER INFORMATION FROM ROUTERS
   hosts: all
   connection: network_cli
-  remote_user: tugrul
+  remote_user: swadmin
   gather_facts: no
 
   tasks:
