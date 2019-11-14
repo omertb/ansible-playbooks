@@ -1,0 +1,14 @@
+- name: bulk config of devices
+  hosts: all_switches
+  connection: network_cli
+  remote_user: swadmin
+  gather_facts: no
+
+  tasks:
+    - name: Configure snmp
+      ios_config:
+        lines:
+          - ip access-list standard 10
+          - permit 10.10.18.33
+          - snmp-server community COMM123 ro 10
+        save: true

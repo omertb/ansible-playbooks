@@ -1,0 +1,10 @@
+---
+- name: date
+
+  hosts: localhost
+  tasks:
+  - name: Ansible date fact example
+    debug:
+      var: ansible_date_time
+  - debug:
+      msg: "the current date is {{ ansible_date_time.iso8601 }}"

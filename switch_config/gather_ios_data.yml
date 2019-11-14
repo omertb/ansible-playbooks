@@ -1,0 +1,10 @@
+---
+- name: GATHER INFORMATION FROM ROUTERS
+  hosts: all
+  connection: network_cli
+  remote_user: tugrul
+  gather_facts: no
+
+  tasks:
+    - name: GATHER ROUTER FACTS
+      ios_facts:

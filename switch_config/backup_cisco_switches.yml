@@ -1,0 +1,11 @@
+---
+- name: backup running config of devices
+  hosts: all_switches
+  connection: network_cli
+  remote_user: USERNAME
+  gather_facts: no
+
+  tasks:
+    - name: Backup configuration
+      ios_config:
+        backup: yes

@@ -1,0 +1,20 @@
+---
+- name: save config of huawei devices
+  hosts: A_Huawei
+  connection: network_cli
+  gather_facts: no
+  vars:
+    datenow: "{{ lookup('pipe','date +%Y-%m-%d@%H:%M:%S') }}"
+
+  tasks:
+    - name: dis cur
+      cli_command:
+#        prompt: "<.*?>"
+#        answer: "\n"
+        command: dis cur
+      register: myoutput
+    - name: MOVE TO FILE
+      copy:
+        content: "{{myoutput.stdout}}"
+        dest: ./backup/{{inventory_hostname}}_{{ datenow }}
+#    - local_action: copy content={{ myoutput.stdout }} dest=./backup/{{ inventory_hostname }}_{{ datenow }}
