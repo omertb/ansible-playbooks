@@ -71,8 +71,14 @@ A_3KRK1_C3550_1 ansible_host=10.10.254.45
 
 ```Shell
 $ ansible-playbook ios_ver_serials.yml --extra-vars '@vaulted_pass' --vault-id @prompt
+
 ## OR
 $ ansible-playbook ios_ver_serials.yml --extra-vars '@vaulted_pass' --ask-vault-pass
+
 ## not to be prompt for vault password but to get from a file named 'vault-pass' containing the password:
 $ ansible-playbook ios_ver_serials.yml --extra-vars '@vaulted_pass' --vault-id vault-pass
+
+## if group_vars available and there is vault file in it:
+$ ansible-playbook ios_ver_serials.yml --ask-vault-pass
+
 ```
