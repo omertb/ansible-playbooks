@@ -1,0 +1,17 @@
+- hosts: debian_servers
+  become: yes
+
+  vars:
+    backup_identifier: "{{ inventory_hostname|replace('.', '') }}"
+    backup_user: "{{ user_ansible }}"
+    backup_remote_connection: backupuser@172.16.100.48
+    backup_hour: "1"
+    backup_minute: "15"
+    backup_mysql: false
+    backup_directories:
+      - /etc/dhcp
+      - /var/log
+      - /etc/network
+
+  roles:
+    - geerlingguy.backup

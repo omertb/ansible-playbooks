@@ -1,0 +1,28 @@
+- name: add new user and make passwordless sudoer
+  hosts: debian_servers
+  gather_facts: no
+  become: yes
+  vars:
+    new_user_password: '$6$UCQFH1/5nVtIUPTh$YBl48sEV9wUyK352VkA7NMzi9s0EmNCVvY58DuYlj9wsb8FVDgxs0xuWq/7Vf/QxbDbHbA1cYKLu.HtckGaBB/'
+#  mkpasswd --method=SHA-512
+  tasks:
+  - name: ensure sudo is install
+    apt:
+      name: sudo
+      state: present
+
+  - name: add a new user
+    user:
+      name: ansible
+      shell: /bin/bash
+      update_password: on_create
+      password: "{{ new_user_password }}"
+
+  - name: Add ansible user to the sudoers
+    copy:
+      dest: "/etc/sudoers.d/ansible"
+      content: "ansible  ALL=(ALL)  NOPASSWD: ALL"
+  - name: Change file ownership
+    file:
+      path: /etc/sudoers.d/ansible
+      mode: '0440'

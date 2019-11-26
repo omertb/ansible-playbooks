@@ -1,0 +1,33 @@
+- name: create RSA key on host and fetch it
+  hosts: debian_servers
+  gather_facts: no
+  tasks:
+  - name: Generate RSA host key
+    command : ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -C "" -N ""
+    args:
+      creates: ~/.ssh/id_rsa.pub
+  - name: fetch key file
+    fetch:
+      src: ~/.ssh/id_rsa.pub
+      flat: yes
+      dest: /tmp/public-key-{{ inventory_hostname }}
+
+- name: ssh-copy the key to backup server
+  hosts: backup_server
+  gather_facts: no
+  tasks:
+  - name: ensure app public key
+    authorized_key:
+      user: backupuser
+      key: "{{ lookup('file', '/tmp/public-key-{{ item }}') }}"
+      state: present
+    with_items: "{{ groups['debian_servers'] }}"
+
+# creates ssh keys on each hosts and copy ssh puvlic keys to the server which
+# the hosts would connect to.
+
+#    - name: ensure app public key
+#      authorized_key:
+#        user: "{{ ansible_user }}"
+#        key: key="{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
+#        state: present

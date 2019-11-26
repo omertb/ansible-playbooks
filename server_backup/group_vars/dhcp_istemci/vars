@@ -1,0 +1,1 @@
+dhcp_wifi_root_pass: "{{ vault_dhcp_wifi_root_pass }}"

@@ -1,0 +1,8 @@
+- name: ssh-copy the key to backup server
+  hosts: backup_server
+  gather_facts: no
+  tasks:
+  - name: loop through host group debug test
+    debug:
+      msg: "{{ item }}"
+    with_items: "{{ groups['debian_dhcp'] }}"

@@ -1,4 +1,8 @@
 
+## Notes
+
+### Vault Commands:
+
 * unvaulted_pass file content:
 ```
 vault_ansible_password: PASSWORD
@@ -47,6 +51,7 @@ ansible_network_os=ios
 A_3KRK1_C3550_1 ansible_host=10.10.254.45
 ```
 
+### Running Playbook
 * Playbook (ios_ver_serials.yml) for displaying serial numbers and ios versions of cisco devices:
 
 
