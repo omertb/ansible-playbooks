@@ -1,0 +1,77 @@
+- name: update IP address on dns and restart
+  hosts: dns_server
+  gather_facts: no
+  become: yes
+  tasks:
+
+  - name: Grab variables from ansible-vault
+    include_vars: 'variables.yml'
+    no_log: 'yes'
+
+  - name: Add or modify ansible.marmara.edu.tr A record
+    nsupdate:
+      key_name: "{{ keyname }}"
+      key_secret: "{{ keysecret }}"
+      server: "{{ server_address}}"
+      zone: '{{ domain_name }}'
+      record: '{{ host_name }}'
+      value: '{{ object_address }}'
+
+  - name: remove ansible.marmara.edu.tr PTR record
+    nsupdate:
+      key_name: "{{ keyname }}"
+      key_secret: "{{ keysecret }}"
+      server: "{{ server_address }}"
+      zone: "{{ reverse_network }}.in-addr.arpa"
+      record: "{{ old_host_address }}"
+      type: "PTR"
+      value: "{{ object_name }}."
+      state: absent
+
+  - name: add ansible.marmara.edu.tr PTR record
+    nsupdate:
+      key_name: "{{ keyname }}"
+      key_secret: "{{ keysecret }}"
+      server: "{{ server_address }}"
+      zone: "{{ reverse_network }}.in-addr.arpa"
+      record: "{{ host_address }}"
+      type: "PTR"
+      value: "{{ object_name }}."
+      state: present
+
+  - name: Restart service bind9
+    service:
+      name: bind9
+      state: restarted
+
+
+# Change IP address of the object on firewall
+- name: update object on panos
+  hosts: panos_fw
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+  - name: Grab variables from ansible-vault
+    include_vars: 'variables.yml'
+    no_log: 'yes'
+
+  - name: Add an address object to the firewall
+    panos_object:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
+      addressobject: '{{ object_name }}'
+      address: '{{ object_address }}'
+      address_type: 'ip-netmask'
+      description: 'testing'
+      operation: 'update'
+
+  - name: Commit pending firewall changes
+    panos_commit:
+      ip_address: '{{ ip_address }}'
+      username: '{{ username }}'
+      password: '{{ password }}'
