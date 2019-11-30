@@ -1,0 +1,37 @@
+- name: update IP address on dns and restart
+  hosts: dns_server
+  gather_facts: no
+  become: yes
+  tasks:
+  - name: Add or modify ansible.example.com A record
+    nsupdate:
+      key_name: "ansible-tsig"
+      key_secret: "vhjd87dfteGZ7L112knekdı=="
+      server: "192.168.100.2"
+      zone: "example.com"
+      record: "ansible"
+      value: "192.168.177.155"
+  - name: remove ansible.example.com PTR record
+    nsupdate:
+      key_name: "ansible-tsig"
+      key_secret: "vhjd87dfteGZ7L112knekdı=="
+      server: "192.168.100.2"
+      zone: "177.168.192.in-addr.arpa"
+      record: "144"
+      type: "PTR"
+      value: "ansible.example.com."
+      state: absent
+  - name: add ansible.example.com PTR record
+    nsupdate:
+      key_name: "ansible-tsig"
+      key_secret: "vhjd87dfteGZ7L112knekdı=="
+      server: "192.168.100.2"
+      zone: "177.168.192.in-addr.arpa"
+      record: "155"
+      type: "PTR"
+      value: "ansible.example.com."
+      state: present
+  - name: Restart service bind9
+    service:
+      name: bind9
+      state: restarted

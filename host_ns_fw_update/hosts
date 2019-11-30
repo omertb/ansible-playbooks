@@ -1,0 +1,7 @@
+[dns_server]
+ns1 ansible_host=192.168.100.2
+
+[dns_server:vars]
+ansible_user=admin
+ansible_password=PASSWORD
+ansible_become_pass=PASSWORD
