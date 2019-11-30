@@ -6,7 +6,7 @@
   - name: Add or modify ansible.example.com A record
     nsupdate:
       key_name: "ansible-tsig"
-      key_secret: "vhjd87dfteGZ7L112knekdı=="
+      key_secret: "vhjd87dfteGZ7L112knekdI=="
       server: "192.168.100.2"
       zone: "example.com"
       record: "ansible"
@@ -14,7 +14,7 @@
   - name: remove ansible.example.com PTR record
     nsupdate:
       key_name: "ansible-tsig"
-      key_secret: "vhjd87dfteGZ7L112knekdı=="
+      key_secret: "vhjd87dfteGZ7L112knekdI=="
       server: "192.168.100.2"
       zone: "177.168.192.in-addr.arpa"
       record: "144"
@@ -24,7 +24,7 @@
   - name: add ansible.example.com PTR record
     nsupdate:
       key_name: "ansible-tsig"
-      key_secret: "vhjd87dfteGZ7L112knekdı=="
+      key_secret: "vhjd87dfteGZ7L112knekdI=="
       server: "192.168.100.2"
       zone: "177.168.192.in-addr.arpa"
       record: "155"

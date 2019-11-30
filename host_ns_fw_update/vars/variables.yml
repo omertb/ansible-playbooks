@@ -1,0 +1,19 @@
+# PANOS Credentials
+ip_address: '172.16.100.100'
+username: 'PANOS_USERNAME'
+password: 'PANOS_PASSWORD'
+# DNS Credentials
+server_address: '192.168.100.2'
+keyname: 'nsupdate-key'
+keysecret: 'vhjd87dfteGZ7L112knekdI=='
+# Variables
+##############################
+domain_name: 'example.com'
+host_name: 'ansible'
+old_host_address: '167'
+host_address: '187'
+network_address: '192.168.177'
+reverse_network: '177.168.192'
+##############################
+object_name: '{{ host_name }}.{{ domain_name }}'
+object_address: '{{ network_address }}.{{ host_address }}'
