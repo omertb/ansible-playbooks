@@ -5,3 +5,6 @@ ns1 ansible_host=192.168.100.2
 ansible_user=admin
 ansible_password=PASSWORD
 ansible_become_pass=PASSWORD
+
+[panos_fw]
+panos-fw ansible_host=172.16.100.100
