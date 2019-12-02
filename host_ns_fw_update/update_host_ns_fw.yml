@@ -4,9 +4,10 @@
   become: yes
   tasks:
 
-  - name: Grab variables from ansible-vault
-    include_vars: 'variables.yml'
-    no_log: 'yes'
+# group_vars/all is valid globally so these line are not required
+#  - name: Grab variables from ansible-vault
+#    include_vars: 'variables.yml'
+#    no_log: 'yes'
 
   - name: Add or modify ansible.marmara.edu.tr A record
     nsupdate:
@@ -55,9 +56,11 @@
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
-  - name: Grab variables from ansible-vault
-    include_vars: 'variables.yml'
-    no_log: 'yes'
+
+# group_vars/all is valid globally so these line are not required
+#  - name: Grab variables from ansible-vault
+#    include_vars: 'variables.yml'
+#    no_log: 'yes'
 
   - name: Add an address object to the firewall
     panos_object:

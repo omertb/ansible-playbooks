@@ -44,8 +44,8 @@ key "ansible-tsig" {
 };
 ```
 
-3. Add the `allow-update` definition in the zones you want them to be able to changed
-with nsupdate as below:
+3. Add the `allow-update` definition in the zones you want them to be accessible
+for nsupdate as below:
 
 ```
         zone "177.168.192.in-addr.arpa" {
