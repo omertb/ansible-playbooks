@@ -1,0 +1,2 @@
+[panos_fw]
+panos-fw ansible_host=172.16.100.100

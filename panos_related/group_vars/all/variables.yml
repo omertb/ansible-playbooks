@@ -1,0 +1,4 @@
+# PANOS Credentials
+ip_address: '172.16.100.100'
+username: 'PANOS_USERNAME'
+password: 'PANOS_PASSWORD'
